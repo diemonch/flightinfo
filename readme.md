@@ -19,7 +19,7 @@ Basic authentication credentials:
     Instructions:
     
     sudo docker run --name redis -d redis
-    git clone 
+    git clone https://github.com/diemonch/flightinfo.git
     npm install
     npm start
     
