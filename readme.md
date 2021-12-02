@@ -14,3 +14,13 @@ API Specs: https://discovery-stub.comtravo.com/api-docs/
 Basic authentication credentials:
     Username: ct_interviewee
     Password: supersecret
+    
+    
+    Instructions:
+    
+    sudo docker run --name redis -d redis
+    git clone 
+    npm install
+    npm start
+    
+    
