@@ -4,6 +4,10 @@ import {APIData} from '../dto/APIData'
 import {LocalCache} from '../caching/LocalCache';
 import { Request, Response, NextFunction } from 'express';
 import config from '../config/Config'
+import {errorHandler} from '../util/Errorhandler'
+
+
+
 const apiData = new APIData();
 export class APIResponse {
    
@@ -25,9 +29,10 @@ public async getFlightData(endpoint:string){
                 
           }else { return cacheddata}
 
-    }catch(err){
-            winston.error("Error while calling endpoint", err);
-            return err;
+    }catch(error){
+            await errorHandler(error);
+            winston.error("Error while calling endpoint", error);
+            return error;
     }
 
 }
@@ -35,13 +40,16 @@ public async getFlightData(endpoint:string){
 public async getResponse(req: Request, res: Response) {
    
     const apiResponse = new APIResponse();
-    try{
-        
-        const [sourceoneresult,sourcetworesult]=await Promise.all([apiResponse.getFlightData("source1"),apiResponse.getFlightData("source2")])
-        const sourceonedata:APIData = sourceoneresult;
-        const sourcetwodata:APIData=sourcetworesult;
-    
-        let uniqueflights= await apiData.getUniqueFlights(sourceonedata,sourcetwodata)
+    let sourceoneresult!:APIData
+    let sourcetworesult!:APIData
+    const apiResponseMaxOut =config.API_RESPONSE_MAXOUT
+
+     try{
+        const apiRequestTimer = new Promise((_, reject) => setTimeout(reject, apiResponseMaxOut, {timedout: "Request timed out"}));
+        sourceoneresult = await Promise.race([apiResponse.getFlightData("source1"),apiRequestTimer])
+        sourcetworesult = await Promise.race([apiResponse.getFlightData("source2"),apiRequestTimer])
+
+        let uniqueflights= await apiData.getUniqueFlights(sourceoneresult,sourcetworesult)
         if(uniqueflights){
         return res.status(200).send(uniqueflights);
         } else {
@@ -49,10 +57,11 @@ public async getResponse(req: Request, res: Response) {
                 "Error":"Error while calling APIs"
             });
         }
-    }catch(err){
-
+    }catch(error){
+       
+        await errorHandler(error)
         return res.status(400).json({
-            err
+            error
         });
     }
 

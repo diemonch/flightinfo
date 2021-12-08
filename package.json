@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
-
   "scripts": {
     "start": "ts-node ./src/app.ts",
     "test": "mocha --require ts-node/register ts,tsx --watch --watch-files src ./src/test/testdemo.ts"
@@ -19,6 +18,7 @@
     "dotenv": "^10.0.0",
     "express": "^4.17.1",
     "morgan": "^1.10.0",
+    "prettier": "^2.5.1",
     "redis": "^4.0.0",
     "supertest": "^6.1.6",
     "ts-node": "^10.4.0",

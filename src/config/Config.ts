@@ -11,7 +11,7 @@ interface Config{
         API_ENDPOINT1:string;
         API_ENDPOINT2:string;
         REDIS_BUFFER_TIME:number;
-       
+        API_RESPONSE_MAXOUT:number;
         
 
 }
@@ -23,7 +23,7 @@ interface ENV{
     API_ENDPOINT1:string|undefined;
     API_ENDPOINT2:string|undefined;
     REDIS_BUFFER_TIME:number|undefined;
-    
+    API_RESPONSE_MAXOUT:number|undefined;
    
 
 
@@ -34,10 +34,10 @@ const getConfig = (): ENV => {
       MAIN_APP_PORT: process.env.MAIN_APP_PORT ? Number(process.env.MAIN_APP_PORT):undefined,
       API_USERNAME:process.env.API_USERNAME?String(process.env.API_USERNAME):undefined,
       API_PASSWORD:process.env.API_PASSWORD?String(process.env.API_PASSWORD):undefined,
-      API_ENDPOINT1:process.env.API_PASSWORD?String(process.env.API_ENDPOINT1):undefined,
-      API_ENDPOINT2:process.env.API_PASSWORD?String(process.env.API_ENDPOINT2):undefined,
-      REDIS_BUFFER_TIME:process.env.API_PASSWORD?Number(process.env.REDIS_BUFFER_TIME):undefined
-      
+      API_ENDPOINT1:process.env.API_ENDPOINT1?String(process.env.API_ENDPOINT1):undefined,
+      API_ENDPOINT2:process.env.API_ENDPOINT2?String(process.env.API_ENDPOINT2):undefined,
+      REDIS_BUFFER_TIME:process.env.REDIS_BUFFER_TIME?Number(process.env.REDIS_BUFFER_TIME):undefined,
+      API_RESPONSE_MAXOUT:process.env.API_RESPONSE_MAXOUT?Number(process.env.API_RESPONSE_MAXOUT):undefined
       
     };
   };

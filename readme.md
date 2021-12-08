@@ -14,3 +14,21 @@ API Specs: https://discovery-stub.comtravo.com/api-docs/
 Basic authentication credentials:
     Username: ct_interviewee
     Password: supersecret
+
+Step by Step Instructions:
+install redis on docker ###### to cache the data and fetch locally
+sudo docker run --name redis -d redis
+
+#### Clone the Project
+git clone https://github.com/diemonch/flightinfo.git
+cd flightinfo
+
+#### Install required packages
+npm install
+
+##### Start the App
+npm start
+
+##### Run the app in Postman
+http://localhost:3000/app
+
