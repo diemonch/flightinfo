@@ -4,7 +4,7 @@ import {APIData} from '../dto/APIData'
 import {LocalCache} from '../caching/LocalCache';
 import { Request, Response, NextFunction } from 'express';
 import config from '../config/Config'
-import {errorHandler} from '../util/Errorhandler'
+import {errorHandler} from '../util/ErrorHandler'
 
 
 
